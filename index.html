@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curise Booking</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
+        rel="stylesheet">
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css"
+      rel="stylesheet"
+    />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!--Header and Menu Section-->
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About Us</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a class="active" href="#">Sign Up</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!--Booking Section-->
+    <main class="main-content container">
+
+        <div class="booking-content">
+            <h1>Cruise Queen</h1>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book./p>
+        </div>
+
+
+        <div class="booking-form">
+            <h3>Book Ocean Time</h3>
+            <div class="input-group">
+                <label for="">Travelling From</label>
+                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+            </div>
+            <div class="input-group">
+                <label for="">Travelling To</label>
+                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+            </div>
+            <div class="inputs">
+                <div class="input-group">
+                    <label" for="">Departure</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+                <div class="input-group">
+                    <label for="">Return</label>
+                    <input class="inp-style" type="date" name="">
+                </div>
+            </div>
+            <div class="input-group f-class">
+                <div>
+                    <label for="">First Class ($150)</label>
+                    <input id="first-cls-seat-count" class="inp-style inp-width" type="text" name="" value="0">
+                </div>
+                    <button onclick="ticketCount('first-cls-seat',true)" style="margin-top:15px;"><i class="fas fa-plus" style="color: #3352F2;font-size: 18px;"></i></button>
+                    <button onclick="ticketCount('first-cls-seat',false)" style="margin-top:15px;"><i class="fas fa-minus" style="color: #3352F2;font-size: 18px;"></i></button>
+                
+            </div>
+            
+            <div class="input-group f-class">
+                <div>
+                    <label for="">Economy ($100)</label>
+                    <input id="economy-seat-count" class="inp-style inp-width" type="text" name="" value='0'>
+                </div>
+                
+                 <button onclick="ticketCount('economy-seat',true)" style="margin-top:15px;"><i class="fas fa-plus" style="color: #3352F2;font-size: 18px;"></i></button>
+                 <button onclick="ticketCount('economy-seat',false)" style="margin-top:15px;"><i class="fas fa-minus" style="color: #3352F2;font-size: 18px;"></i></button>
+                
+            </div>
+            <div class="calculations">
+                <div class="amount">
+                    <div class="left">
+                        <p>Subtotal</p>
+                    </div>
+                    <div class="right">
+                        <p id="subtotal">$0</p>
+                    </div>
+                </div>
+
+                <div class="amount">
+                    <div class="left">
+                        <p>Charge 10% VAT</p>
+                    </div>
+                    <div class="right">
+                        <p id="tax">$0</p>
+                    </div>
+                </div>
+                <hr>
+                <div class="amount">
+                    <div class="left">
+                        <h4>Total</h4>
+                    </div>
+                    <div class="right">
+                        <p id="total">$0</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="bookSeat()" class="btn-style">Book Now</button>
+        </div>
+    </main>
+
+    <!--Thank You-->
+    <script>
+        function ticketCount(type,isIncrease) {
+            const ticketInput = document.getElementById(type+"-count");
+            const ticketCount = parseInt(ticketInput.value);
+            let ticketNewCount = ticketCount;
+            if(isIncrease){
+                ticketNewCount = ticketCount + 1;
+            }
+            else if(isIncrease==false && ticketCount>0){
+                ticketNewCount = ticketCount - 1;
+                
+            }
+            ticketInput.value = ticketNewCount;
+            calculatePrice();
+            
+        }
+        function calculatePrice(){
+            const firstClsSeatCount = ticketInputCount("first-cls-seat");
+            const economyClsSeatCount = ticketInputCount("economy-seat");
+            const subTotalPrice = firstClsSeatCount * 150 + economyClsSeatCount * 100;
+            document.getElementById("subtotal").innerText = '$'+subTotalPrice;
+            const taxCount = subTotalPrice * 0.1;
+            const tax = Math.round(taxCount);
+            document.getElementById("tax").innerText = '$'+tax;
+            const totalPrice = subTotalPrice + tax;
+            document.getElementById("total").innerText = "$"+totalPrice;
+            return totalPrice;
+        }
+        function ticketInputCount(type){
+            const ticketInputCount = document.getElementById(type+"-count").value;
+            const ticketInputNumber = parseInt(ticketInputCount);
+            return ticketInputNumber;
+
+        }
+        function bookSeat(){
+            const price = calculatePrice();
+            //console.log(price);
+            if(price>0){
+                alert("Thank You! Your Ticket has been successfully booked.");
+            }
+            else{
+                alert("Please, buy a ticket first!");
+            }
+        }
+        
+    </script>
+</body>
+
+</html>
