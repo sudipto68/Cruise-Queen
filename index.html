@@ -119,6 +119,7 @@
             let ticketNewCount = ticketCount;
             if(isIncrease){
                 ticketNewCount = ticketCount + 1;
+                
             }
             else if(isIncrease==false && ticketCount>0){
                 ticketNewCount = ticketCount - 1;
@@ -150,11 +151,19 @@
             const price = calculatePrice();
             //console.log(price);
             if(price>0){
-                alert("Thank You! Your Ticket has been successfully booked.");
+                alert("Thank You! Your Ticket has been successfully booked. \n Your Total Price: $"+price);
+                resetAll();
             }
             else{
                 alert("Please, buy a ticket first!");
             }
+        }
+        function resetAll(){
+            document.getElementById("first-cls-seat-count").value = 0;
+            document.getElementById("economy-seat-count").value = 0;
+            document.getElementById("subtotal").innerText = '$'+0;
+            document.getElementById("tax").innerText = '$'+0;
+            document.getElementById("total").innerText = '$'+0;
         }
         
     </script>
